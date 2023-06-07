@@ -11,6 +11,21 @@ use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
+    protected $loginField;
+    protected $loginValue;
+
+    /**
+    * Prepare the data for validation.
+    *
+    * @return void
+    */
+    protected function prepareForValidation(): void
+    {
+      $this->loginField = filter_var($this->input('login'),
+        FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+      $this->loginValue = $this->input('login');
+      $this->merge([$this->loginField => $this->loginValue]);
+    }
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,12 +39,13 @@ class LoginRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
      */
-    public function rules(): array
+    public function rules()
     {
-        return [
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string'],
-        ];
+      return [
+        'email' => 'required_without:username|string|email|exists:users,email',
+        'username' => 'required_without:email|string|exists:users,username',
+        'password' => 'required|string',
+      ];
     }
 
     /**
@@ -41,11 +57,11 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        if (! Auth::attempt($this->only($this->loginField, 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'login' => trans('auth.failed'),
             ]);
         }
 
