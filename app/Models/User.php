@@ -3,12 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasName, FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -40,4 +43,14 @@ class User extends Authenticatable
         'last_out' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function canAccessFilament(): bool
+    {
+        return $this->role == 'admin';
+    }
+
+    public function getFilamentName(): string
+    {
+        return $this->username;
+    }
 }
