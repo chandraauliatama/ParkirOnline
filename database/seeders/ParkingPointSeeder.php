@@ -13,6 +13,8 @@ class ParkingPointSeeder extends Seeder
      */
     public function run(): void
     {
+        ParkingPoint::truncate();
+        
         $parkCodes = ['A', 'B', 'C'];
 
         foreach ($parkCodes as $parkCode) {

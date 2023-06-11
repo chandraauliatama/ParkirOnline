@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('role')->default('user');
             $table->string('plat_number')->nullable();
-            $table->string('park_location')->nullable();
+            $table->string('parking_point_id')->nullable();
             $table->timestamp('last_in')->nullable();
             $table->timestamp('last_out')->nullable();
             $table->timestamp('email_verified_at')->nullable();

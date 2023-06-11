@@ -41,7 +41,7 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('plat_number')
                     ->unique(ignoreRecord: true)
                     ->maxLength(255),
-                Forms\Components\TextInput::make('park_location')
+                Forms\Components\TextInput::make('parking_point_id')
                     ->maxLength(255),
                 Forms\Components\DateTimePicker::make('last_in'),
                 Forms\Components\DateTimePicker::make('last_out'),
@@ -67,7 +67,7 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('email'),
                 Tables\Columns\TextColumn::make('role'),
                 Tables\Columns\TextColumn::make('plat_number'),
-                Tables\Columns\TextColumn::make('park_location'),
+                Tables\Columns\TextColumn::make('parking_point_id'),
                 Tables\Columns\TextColumn::make('last_in')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('last_out')

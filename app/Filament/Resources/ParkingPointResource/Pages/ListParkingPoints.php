@@ -47,12 +47,13 @@ class ListParkingPoints extends ListRecords
 
                     $parkingPoint->is_occupied = true;
                     $parkingPoint->plat_number = $platNumber;
+                    $parkingPoint->date_in = now();
                     $parkingPoint->save();
 
 
                     if ($oldUser) {
                         $oldUser->last_in = now();
-                        $oldUser->park_location = $parkingPoint->id;
+                        $oldUser->parking_point_id = $parkingPoint->id;
                         $oldUser->save();
                     } else {
                         User::create([
@@ -60,7 +61,7 @@ class ListParkingPoints extends ListRecords
                             'password' => Hash::make($platNumber),
                             'plat_number' => $platNumber,
                             'last_in' => now(),
-                            'park_location' => $parkingPoint->id,
+                            'parking_point_id' => $parkingPoint->id,
                         ]);
                     }
 
