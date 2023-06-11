@@ -17,6 +17,10 @@ class ParkingPointResource extends Resource
 {
     protected static ?string $model = ParkingPoint::class;
 
+    protected static ?string $modelLabel = 'Titik Parkir';
+
+    protected static ?string $pluralModelLabel = 'Titik Parkir';
+
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
     public static function form(Form $form): Form
@@ -24,15 +28,18 @@ class ParkingPointResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nama Titik Parkir')
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
                 Forms\Components\Toggle::make('is_occupied')
+                    ->label('Sudah Ditempati')
                     ->default(false)
                     ->columnSpanFull()
                     ->reactive()
                     ->required(),
                 Forms\Components\TextInput::make('plat_number')
+                    ->label('Plat Nomor')
                     ->maxLength(255)
                     ->disabled(fn($get) => !$get('is_occupied'))
                     ->columnSpanFull(),
@@ -43,10 +50,14 @@ class ParkingPointResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Titik Parkir')
+                    ->searchable(),
                 Tables\Columns\IconColumn::make('is_occupied')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('plat_number'),
+                    ->label('Sudah Ditempati')->boolean()->toggle(),
+                Tables\Columns\TextColumn::make('plat_number')
+                    ->label('Plat Nomor')
+                    ->searchable(),
             ])
             ->filters([
                 //
