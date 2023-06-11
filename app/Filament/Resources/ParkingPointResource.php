@@ -12,8 +12,11 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\TernaryFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use PhpParser\Node\Stmt\Label;
 
 class ParkingPointResource extends Resource
 {
@@ -59,8 +62,9 @@ class ParkingPointResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Titik Parkir')
-                    ->searchable(),
+                    ->searchable()->sortable(),
                 Tables\Columns\IconColumn::make('is_occupied')
+                    ->sortable()
                     ->label('Sudah Ditempati')->boolean()->toggle(),
                 Tables\Columns\TextColumn::make('plat_number')
                     ->label('Plat Nomor')
@@ -69,11 +73,13 @@ class ParkingPointResource extends Resource
                     ->label('Waktu Masuk')
             ])
             ->filters([
-                //
+                TernaryFilter::make('status')
+                    ->attribute('is_occupied')
+                    ->label('Sudah Ditempati')
             ])
             ->actions([
                 Tables\Actions\Action::make('keluar')
-                    ->hidden(fn ($record) => !$record->is_occupied)
+                    ->hidden(fn ($record) => !$record->is_occupied && !$record->plat_number)
                     ->button()->color('danger')
                     ->requiresConfirmation()
                     ->action(function($record) {
