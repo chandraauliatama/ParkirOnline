@@ -23,7 +23,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (Schema::hasTable('static_images')) {
+        try {
+            DB::connection()->getPDO();
+            $db = true;
+        } catch (\Exception $e) {
+            $db = false;
+        }
+        if ($db && Schema::hasTable('static_images')) {
             $staticImages = StaticImage::all()->mapWithKeys(function($image) {
                 return [$image->label => $image->source];
             });
