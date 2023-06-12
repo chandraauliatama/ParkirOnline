@@ -31,12 +31,12 @@ class DatabaseSeeder extends Seeder
 
         StaticImage::create([
             'label' => 'logo',
-            'source' => 'images/logo.png'
+            'source' => 'static_images/logo.png'
         ]);
 
         StaticImage::create([
             'label' => 'login_hero',
-            'source' => 'images/loginHero.png'
+            'source' => 'static_images/loginHero.png'
         ]);
     }
 }
