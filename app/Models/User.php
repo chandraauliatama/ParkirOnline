@@ -53,4 +53,9 @@ class User extends Authenticatable implements HasName, FilamentUser
     {
         return $this->username;
     }
+
+    public function parkingPoint()
+    {
+        return $this->belongsTo(ParkingPoint::class);
+    }
 }
