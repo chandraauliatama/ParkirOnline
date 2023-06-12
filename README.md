@@ -1,33 +1,53 @@
-# Installation
+# Parkir Online
+
+### A Simple Parking System using Laravel and Filament
+
+## Installation
 
 1. Git clone:
 
-    `git clone https://github.com/chandraauliatama/parkironline.git`
+```bash
+git clone https://github.com/chandraauliatama/parkironline.git
+```
 
-2. Get into parkironline directory
+2. Cd into parkironline directory
 
-    `cd parkironline`
+```bash
+cd parkironline
+```
 
-3. Install dependencies via composer:
+3. Install via composer:
 
-    `composer install`
+```bash
+composer install
+```
 
-4. Install Dependencies: You can use one of either pnpm, npm, or yarn.
+4. Install Dependencies:
 
-    `npm install`
+```bash
+npm install
+```
 
 5. Build Manifest
 
-    `npm run build`
+```bash
+npm run build
+```
 
 6. Copy .env.example and configure your database:
 
-    `cp .env.example .env`
+```bash
+cp .env.example .env
+```
 
 7. Generate APP_KEY for Laravel:
 
-    `php artisan key:generate`
+```bash
+php artisan key:generate
+```
 
-8. Migrate the database tables and seed the data to your DB:
+8. Migrate the database tables to your DB:
 
-    `php artisan migrate --seed`
+```bash
+php artisan migrate --seed
+```
