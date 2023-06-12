@@ -89,10 +89,12 @@ class ParkingPointResource extends Resource
                     ->requiresConfirmation()
                     ->action(function($record) {
                         $user = User::where('plat_number', $record->plat_number)?->first();
-                        $user->parking_point_id = null;
-                        $user->last_in = null;
-                        $user->last_out = now();
-                        $user->save();
+                        if($user) {
+                            $user->parking_point_id = null;
+                            $user->last_in = null;
+                            $user->last_out = now();
+                            $user->save();
+                        }
 
                         $record->is_occupied = false;
                         $record->plat_number = null;
