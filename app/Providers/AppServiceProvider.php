@@ -25,5 +25,10 @@ class AppServiceProvider extends ServiceProvider
             return [$image->label => $image->source];
         });
         view()->share('staticImages', $staticImages);
+
+        Filament::serving(function () {
+            // Using Vite
+            Filament::registerViteTheme('resources/css/filament.css');
+        });
     }
 }
