@@ -64,7 +64,7 @@ class ListParkingPoints extends ListRecords
                     } else {
                         User::create([
                             'username' => $platNumber,
-                            'password' => Hash::make($platNumber),
+                            'password' => Hash::make(strtolower($platNumber)),
                             'plat_number' => $platNumber,
                             'last_in' => now(),
                             'parking_point_id' => $parkingPoint->id,
