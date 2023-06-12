@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
+use AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\ParkingPoint;
@@ -116,6 +118,10 @@ class UserResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                FilamentExportBulkAction::make('Export')->label('Cetak Data User Terpilih')
+            ])
+            ->headerActions([
+                FilamentExportHeaderAction::make('export')->label('Cetak Laporan Pengguna')
             ]);
     }
     

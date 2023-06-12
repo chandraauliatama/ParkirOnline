@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
+use AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
 use App\Filament\Resources\ParkingReportResource\Pages;
 use App\Filament\Resources\ParkingReportResource\RelationManagers;
 use App\Models\ParkingReport;
@@ -73,6 +75,10 @@ class ParkingReportResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                FilamentExportBulkAction::make('export')->label('Cetak Data Terpilih')
+            ])
+            ->headerActions([
+                FilamentExportHeaderAction::make('export')->label('Cetak Laporan')
             ]);
     }
     

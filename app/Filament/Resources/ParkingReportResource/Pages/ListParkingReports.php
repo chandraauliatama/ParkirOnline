@@ -14,8 +14,11 @@ class ListParkingReports extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
-            Actions\Action::make('Cetak Laporan')
-                ->color('success'),
         ];
     }
+
+    protected function getTableRecordsPerPageSelectOptions(): array 
+    {
+        return [10, 25, 50, 100];
+    } 
 }

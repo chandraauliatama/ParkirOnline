@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
+use AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
 use App\Filament\Resources\ParkingPointResource\Pages;
 use App\Filament\Resources\ParkingPointResource\RelationManagers;
 use App\Models\ParkingPoint;
@@ -38,7 +40,7 @@ class ParkingPointResource extends Resource
                     ->maxLength(255)
                     ->columnSpanFull(),
                 Forms\Components\Toggle::make('is_occupied')
-                    ->label('Sudah Ditempati')
+                    ->label('Sedang Ditempati')
                     ->default(false)
                     ->columnSpanFull()
                     ->reactive()
@@ -63,9 +65,11 @@ class ParkingPointResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->label('Titik Parkir')
                     ->searchable()->sortable(),
-                Tables\Columns\IconColumn::make('is_occupied')
+                Tables\Columns\BadgeColumn::make('is_occupied')
+                    ->enum([true => 'Ya', false => 'Tidak'])
+                    ->colors(['danger' => 1, 'success' => 0])
                     ->sortable()
-                    ->label('Sudah Ditempati')->boolean()->toggle(),
+                    ->label('Sedang Ditempati'),
                 Tables\Columns\TextColumn::make('plat_number')
                     ->getStateUsing(fn($record) => strtoupper($record->plat_number))
                     ->label('Plat Nomor')
@@ -103,6 +107,10 @@ class ParkingPointResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                FilamentExportBulkAction::make('Export')->label('Cetak Data Terpilih')
+            ])
+            ->headerActions([
+                FilamentExportHeaderAction::make('export')->label('Cetak Laporan Titik Parkir')
             ]);
     }
     
