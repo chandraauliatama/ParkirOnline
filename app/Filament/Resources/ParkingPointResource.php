@@ -48,7 +48,7 @@ class ParkingPointResource extends Resource
                     ->maxLength(255)
                     ->hidden(fn($get) => !$get('is_occupied'))
                     ->columnSpanFull(),
-                Forms\Components\DateTimePicker::make('date_in')
+                Forms\Components\DateTimePicker::make('time_in')
                     ->label('Waktu Masuk')
                     ->default(now())
                     ->hidden(fn($get) => !$get('is_occupied'))
@@ -69,7 +69,7 @@ class ParkingPointResource extends Resource
                 Tables\Columns\TextColumn::make('plat_number')
                     ->label('Plat Nomor')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('date_in')
+                Tables\Columns\TextColumn::make('time_in')
                     ->label('Waktu Masuk')
             ])
             ->filters([
@@ -91,7 +91,7 @@ class ParkingPointResource extends Resource
 
                         $record->is_occupied = false;
                         $record->plat_number = null;
-                        $record->date_in = null;
+                        $record->time_in = null;
                         $record->save();
                         
                         return Notification::make()->success()

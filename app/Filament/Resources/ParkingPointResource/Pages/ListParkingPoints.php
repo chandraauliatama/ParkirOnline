@@ -47,7 +47,7 @@ class ListParkingPoints extends ListRecords
 
                     $parkingPoint->is_occupied = true;
                     $parkingPoint->plat_number = $platNumber;
-                    $parkingPoint->date_in = now();
+                    $parkingPoint->time_in = now();
                     $parkingPoint->save();
 
 

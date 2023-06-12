@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->boolean('is_occupied')->default(false);
             $table->string('plat_number')->nullable();
-            $table->timestamp('date_in')->nullable();
+            $table->timestamp('time_in')->nullable();
         });
     }
 
