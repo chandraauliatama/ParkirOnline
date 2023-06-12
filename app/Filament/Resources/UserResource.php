@@ -79,10 +79,15 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('username')
+                    ->getStateUsing(fn($record) => strtolower($record->username))
                     ->searchable(),
                 // Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('role'),
+                Tables\Columns\BadgeColumn::make('role')
+                    ->enum(['admin' => 'Admin', 'user' => 'User'])
+                    ->colors(['danger' => 'admin', 'success' => 'user'])
+                    ->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('plat_number')
+                    ->getStateUsing(fn($record) => strtoupper($record->plat_number))
                     ->searchable()
                     ->label('Plat Nomor'),
                 Tables\Columns\TextColumn::make('parkingPoint.name')

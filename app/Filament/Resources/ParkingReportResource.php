@@ -54,6 +54,7 @@ class ParkingReportResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('plat_number')
                     ->label('Plat Nomor')
+                    ->getStateUsing(fn($record) => strtoupper($record->plat_number))
                     ->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('parking_point_name')
                     ->label('Titik Parkir')

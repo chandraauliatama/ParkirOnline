@@ -67,6 +67,7 @@ class ParkingPointResource extends Resource
                     ->sortable()
                     ->label('Sudah Ditempati')->boolean()->toggle(),
                 Tables\Columns\TextColumn::make('plat_number')
+                    ->getStateUsing(fn($record) => strtoupper($record->plat_number))
                     ->label('Plat Nomor')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('time_in')
