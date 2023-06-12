@@ -12,7 +12,8 @@ class StatsOverview extends BaseWidget
     {
         return [
             Card::make('Total Titik Parkir', ParkingPoint::count()),
-            Card::make('Parkir Terisi', ParkingPoint::where('is_occupied', true)->count())
+            Card::make('Parkir Terisi', ParkingPoint::where('is_occupied', true)->count()),
+            Card::make('Parkir Terisi', ParkingPoint::where('is_occupied', false)->count())
         ];
     }
 }
