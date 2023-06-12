@@ -4,6 +4,7 @@ namespace App\Filament\Resources\ParkingPointResource\Pages;
 
 use App\Filament\Resources\ParkingPointResource;
 use App\Models\ParkingPoint;
+use App\Models\ParkingReport;
 use App\Models\User;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -44,6 +45,11 @@ class ListParkingPoints extends ListRecords
                     }
 
                     $oldUser = User::where('plat_number', $platNumber)?->first();
+
+                    ParkingReport::create([
+                        'plat_number' => $platNumber,
+                        'parking_point_name' => $parkingPoint->name
+                    ]);
 
                     $parkingPoint->is_occupied = true;
                     $parkingPoint->plat_number = $platNumber;
