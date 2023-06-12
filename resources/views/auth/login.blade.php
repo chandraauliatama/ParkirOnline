@@ -1,6 +1,6 @@
 <x-guest-layout>
     <x-slot name="image">
-        <img class="rounded-3xl" src="{{ asset('images/loginHero.png') }}">
+        <img class="rounded-3xl" src="{{ asset('storage/' . $staticImages['login_hero']) }}">
     </x-slot>
 
     <div class="flex w-full items-center justify-center space-y-8 bg-white lg:w-1/2">
@@ -10,7 +10,8 @@
                 <div class="text-center">
                     <a href="{{ route('dashboard') }}"
                        class="mb-5 flex items-center justify-center text-2xl font-semibold text-gray-900 dark:text-white">
-                        <img src="{{ asset('images/logo.png') }}" class="h-16 sm:h-16" alt="ParkirOnline Logo" />
+                        <img src="{{ asset('storage/' . $staticImages['logo']) }}" class="h-16 sm:h-16"
+                             alt="EasyParkir Logo" />
                     </a>
                 </div>
                 <h1 class="mb-1 text-2xl font-bold text-blue-500">Selamat Datang!</h1>

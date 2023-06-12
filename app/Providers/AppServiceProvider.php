@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\StaticImage;
 use Filament\Facades\Filament;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,16 +21,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Filament::serving(function(){
-            \Filament\Tables\Columns\IconColumn::macro('toggle', function() {
-                $this->action(function($record, $column) {
-                    $name = $column->getName();
-                    $record->update([
-                        $name => !$record->$name
-                    ]);
-                });
-                return $this;
-            });
+        $staticImages = StaticImage::all()->mapWithKeys(function($image) {
+            return [$image->label => $image->source];
         });
+        view()->share('staticImages', $staticImages);
     }
 }

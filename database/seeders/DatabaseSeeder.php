@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\StaticImage;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -20,6 +22,21 @@ class DatabaseSeeder extends Seeder
             'username' => 'admin',
             'role' => 'admin',
             'password' => Hash::make('password')
+        ]);
+
+        StaticImage::create([
+            'label' => 'denah_parkir',
+            'source' => 'static_images/revdenah-01.png'
+        ]);
+
+        StaticImage::create([
+            'label' => 'logo',
+            'source' => 'images/logo.png'
+        ]);
+
+        StaticImage::create([
+            'label' => 'login_hero',
+            'source' => 'images/loginHero.png'
         ]);
     }
 }
