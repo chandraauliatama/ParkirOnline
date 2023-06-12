@@ -17,8 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::redirect('/admin/login', '/login');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/redirectAuthenticatedUser', [RedirectAuthenticatedUserController::class, 'home']);
-    Route::get('/', fn() => view('dashboard'))->name('dashboard');
+    Route::get('/', fn() => auth()->user()->role == 'admin' ? redirect('/admin') : view('dashboard'))->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
